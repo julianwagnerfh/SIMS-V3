@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  simsapi:
+    image: ${DOCKER_REGISTRY-}simsapi
+    build:
+      context: .
+      dockerfile: SIMSAPI/Dockerfile
+
+  simsfrontend:
+    image: ${DOCKER_REGISTRY-}simsfrontend
+    build:
+      context: .
+      dockerfile: SIMSFrontend/Dockerfile
+
+  sql-1:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql-1
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Adm1234!
+    ports:
+      - "1433:1433"
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+
+
